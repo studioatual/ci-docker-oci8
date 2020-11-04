@@ -1,0 +1,26 @@
+version: '3.4'
+services:
+  php:
+    build: .docker
+    image: ci-apache
+    container_name: ci-apache
+    ports:
+      - 8081:80
+    volumes:
+      - .:/var/www/html
+    restart: always
+    networks:
+      - mynetwork
+
+  db:
+    image: oracleinanutshell/oracle-xe-11g
+    container_name: ci-oracledb
+    ports:
+      - 1521:1521
+    restart: always
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
